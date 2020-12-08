@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+	  
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>小明个人博客</title>
+    <!-- Bootstrap CSS -->
+   
+
+    <script src="/node_modules/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  	<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+	<script src="/node_modules/bootstrap/dist/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/public/js/index.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <!-- <body style="background-image:url(/public/img/body2.jpg);"> -->
+  <body style="background-image: url(/public/img/body3.jpg); background-attachment: fixed; background-repeat:no-repeat;background-size: 100% 100%;">  
+	<div class="container" style="background-color: white; min-height:1000px; padding: 20px; padding-bottom:100px;">
+	<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" >
+	  <ol class="carousel-indicators" >
+	    <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+	    <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+	    <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+	  </ol>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active" style="height: 180px;">
+	      <img src="/public/img/topice1.jpg" class="d-block w-100" alt="..." >
+	      <div class="carousel-caption d-none d-md-block">
+	     </div>
+	    </div>
+	    <div class="carousel-item" style="height: 180px;">
+	      <img src="/public/img/topice2.jpg" class="d-block w-100" alt="...">
+	      <div class="carousel-caption d-none d-md-block">
+	      </div>
+	    </div>
+	    <div class="carousel-item" style="height: 180px;">
+	      <img src="/public/img/topice3.jpg" class="d-block w-100" alt="..."  >
+	      <div class="carousel-caption d-none d-md-block">
+	       </div>
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	  {%if category==''%}
+	  <a class="navbar-brand text-primary" href="/">首页</a>
+	  {%else%}
+	  <a class="navbar-brand" href="/">首页</a>
+	  {%endif%}
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	
+	
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	    <ul class="navbar-nav mr-auto">
+			{%for cate in categories%}
+				{%if category==cate.id %}
+				  <li class="nav-item active">
+					<a class="nav-link text-primary" href="/?category={{cate.id}}">{{cate.name}}<span class="sr-only">(current)</span></a>
+				  </li>
+				{%else%}
+				  <li class="nav-item active">
+					<a class="nav-link" href="/?category={{cate.id}}">{{cate.name}}<span class="sr-only">(current)</span></a>
+				  </li>				
+				{%endif%}
+			{%endfor%}
+	 
+	    </ul>
+	  </div>
+	</nav>
+	
+	
+		<div class="container"> 
+		  <div class="row">
+		   {% block main  %}
+		   {% endblock %}
+		    <div class="col-4">
+				<!-- 	侧边 -->
+				{% if userInfo._id %}
+				<div class="card" id="userInfo" >
+				  <div class="card-body">
+				    <h5 class="card-title">用户信息:</h5>
+				    <h6 class="card-subtitle mb-2 text-muted ">{{userInfo.username}}</h6>
+				    {% if userInfo.isAdmin %}
+					<p class="card-text ">欢迎您管理员</p>
+					 <a href="/admin" class="card-link" id="admin">进入后台</a> 
+					{% else %}
+					<p class="card-text ">欢迎来到我的博客</p>
+					{% endif %}
+					
+				    <a href="javascript:;" class="card-link" id="logout">退出</a> 
+				  </div>
+				</div>
+				{% else %}
+				<div id="loginBox"  >
+				  <div class="form-group">
+				    <label for="username">Username</label>
+				    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="name@example.com">
+				    <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+				  </div>
+		
+				  <button class="btn btn-primary" >登录</button>
+				  <a href="javascript:;">马上注册</a>
+				  <p class="text-danger"></p>
+				</div>
+				
+				<div id="registerBox" style="display:none ;">
+				  <div class="form-group">
+				    <label for="Username">Username</label>
+				    <input type="email" class="form-control" id="username" aria-describedby="emailHelp" name="username" placeholder="name@example.com">
+				    <small id="emailHelp" class="form-text text-muted">We'll never share your username with anyone else.</small>
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">Repassword</label>
+				    <input type="password" class="form-control" id="exampleInputPassword1" name="repassword">
+				  </div>
+				  <button type="submit" class="btn btn-primary">注册</button>
+				  <a href="javascript:;">马上登录</a>
+				  <p class="text-danger"></p>			 
+				</div>
+				{% endif %}
+				
+			</div>
+		  </div>
+		</div>		
+	  </div>
+	</div>
+	</div>
+	</div>
+      </body>
+</html>

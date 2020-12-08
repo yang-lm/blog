@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block main%}
+
+<div class="col-8">
+	{%for content in contents%}
+	<div class="card">
+	  <h5 class="card-header"></h5>
+	  <div class="card-body">
+		<h5 class="card-title">{{content.title}}</h5>
+		<p>
+		作者：<span class="text-primary">{{content.user.username}}</span>
+		时间：<span class="text-primary">{{content.addTime|date('Y年m月d日 H:i:s', -60*8)}}</span>
+		阅读：<span class="text-primary">{{content.views}}</span>
+		</p>
+		<p class="card-text"> {{content.description}}</p>
+		<a href="/view?contentId={{content.id}}" class="btn btn-primary">阅读</a>
+	  </div>
+	</div>
+	{%endfor%}
+	{% include 'page.html'%}
+</div>
+{%endblock%}

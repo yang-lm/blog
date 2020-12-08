@@ -1,0 +1,15 @@
+ <div></div>
+ <ul class="pager">
+	    <li class="previous d-inline"><a href="{{url}}?category={{category}}&page={{page-1}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+	    {% if pages>0 %}
+		<li class="text-primary d-inline">
+			{{page}}/{{pages}}
+		</li>
+		{% else %}
+		<li class="text-primary d-inline">
+			0/0
+		</li>
+		{% endif %}
+		<li class="next d-inline"><a href="{{url}}?category={{category}}&page={{page+1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+</ul>
+	
